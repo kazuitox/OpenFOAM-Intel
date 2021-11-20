@@ -35,7 +35,7 @@ This will decompose and run potentialFoam.
 Now, all you need to do is solve.  Either run simpleFoam or call:
 
 #+begin_src bash
-./Solve
+./Solve <NPROCS>
 #+end_src
 
 

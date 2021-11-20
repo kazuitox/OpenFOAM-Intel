@@ -7,8 +7,9 @@ export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE"
 #export MPI_RoCEv2_OPTIONS="-mca btl self -x UCX_TLS=rc,self,sm -x HCOLL_ENABLE_MCAST_ALL=0 -mca coll_hcoll_enable 0 -x UCX_IB_TRAFFIC_CLASS=105 -x UCX_IB_GID_INDEX=3"
 export MPI_RoCEv2_OPTIONS=""
 #export MPI_Pinning_OPTIONS="--cpu-set 0,2,4,6,8,10,12,14"
+export MPI_X_OPTIONS=$(./generate-ompi-x-options.sh)
 export MPI_Pinning_OPTIONS="--use-hwthread-cpus"
-export MPI_OPTIONS="$MPI_BASE_OPTIONS $MPI_RoCEv2_OPTIONS $MPI_Pinning_OPTIONS"
+export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_X_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTIONS}"
 
 echo "Running with $NPROCS procs."
 
