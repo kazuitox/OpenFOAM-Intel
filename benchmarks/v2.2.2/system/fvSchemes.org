@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.3.0                                 |
+|  \\    /   O peration     | Version:  dev                                   |
 |   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -10,35 +10,48 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      decomposeParDict;
+    object      fvSchemes;
 }
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains 8;
-
-method          hierarchical;
-
-scotchCoeffs
+ddtSchemes
 {
+    default         steadyState;
 }
 
-simpleCoeffs
+gradSchemes
 {
-    n               (4 1 1);
-    delta           0.001;
+    default         Gauss linear;
+    grad(U)         cellLimited Gauss linear 1;
 }
 
-hierarchicalCoeffs
+divSchemes
 {
-    n               (4 2 1);
-    delta           0.001;
-    order           xyz;
+    default         none;
+    div(phi,U)      bounded Gauss linearUpwindV grad(U);
+    div(phi,k)      bounded Gauss upwind;
+    div(phi,omega)  bounded Gauss upwind;
+    div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
-manualCoeffs
+laplacianSchemes
 {
-    dataFile        "cellDecomposition";
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+wallDist
+{
+    method meshWave;
 }
 
 

@@ -1,0 +1,521 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.2                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+72
+(
+    frontAndBack
+    {
+        type            patch;
+        nFaces          360;
+        startFace       1044040;
+    }
+    inlet
+    {
+        type            patch;
+        nFaces          72;
+        startFace       1044400;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          72;
+        startFace       1044472;
+    }
+    lowerWall
+    {
+        type            wall;
+        nFaces          5342;
+        startFace       1044544;
+    }
+    upperWall
+    {
+        type            patch;
+        nFaces          160;
+        startFace       1049886;
+    }
+    motorBike_frt-fairing:001%1
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          5322;
+        startFace       1050046;
+    }
+    motorBike_windshield:002%2
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          53;
+        startFace       1055368;
+    }
+    motorBike_rr-wh-rim:005%5
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          127;
+        startFace       1055421;
+    }
+    motorBike_rr-wh-rim:010%10
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          354;
+        startFace       1055548;
+    }
+    motorBike_fr-wh-rim:011%11
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          497;
+        startFace       1055902;
+    }
+    motorBike_fr-wh-brake-disk:012%12
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          42;
+        startFace       1056399;
+    }
+    motorBike_frame:016-shadow%13
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          104;
+        startFace       1056441;
+    }
+    motorBike_rear-susp:014%14
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          841;
+        startFace       1056545;
+    }
+    motorBike_rear-susp:014-shadow%15
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          441;
+        startFace       1057386;
+    }
+    motorBike_frame:016%16
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          59;
+        startFace       1057827;
+    }
+    motorBike_rr-wh-rim:005-shadow%17
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          61;
+        startFace       1057886;
+    }
+    motorBike_rr-wh-chain-hub:022%22
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          126;
+        startFace       1057947;
+    }
+    motorBike_rearseat%24
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          412;
+        startFace       1058073;
+    }
+    motorBike_frt-fairing%25
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          625;
+        startFace       1058485;
+    }
+    motorBike_windshield%26
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          364;
+        startFace       1059110;
+    }
+    motorBike_headlights%27
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          156;
+        startFace       1059474;
+    }
+    motorBike_driversseat%28
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          364;
+        startFace       1059630;
+    }
+    motorBike_rear-body%29
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          2045;
+        startFace       1059994;
+    }
+    motorBike_fuel-tank%30
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          876;
+        startFace       1062039;
+    }
+    motorBike_exhaust%31
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          2352;
+        startFace       1062915;
+    }
+    motorBike_rr-wh-rim%32
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1364;
+        startFace       1065267;
+    }
+    motorBike_fr-mud-guard%33
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          612;
+        startFace       1066631;
+    }
+    motorBike_fr-wh-rim%34
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          577;
+        startFace       1067243;
+    }
+    motorBike_fr-wh-brake-disk%35
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          450;
+        startFace       1067820;
+    }
+    motorBike_fr-brake-caliper%36
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          156;
+        startFace       1068270;
+    }
+    motorBike_fr-wh-tyre%37
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1113;
+        startFace       1068426;
+    }
+    motorBike_hbars%38
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          524;
+        startFace       1069539;
+    }
+    motorBike_fr-forks%39
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1100;
+        startFace       1070063;
+    }
+    motorBike_chain%40
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          462;
+        startFace       1071163;
+    }
+    motorBike_rr-wh-tyre%41
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1768;
+        startFace       1071625;
+    }
+    motorBike_square-dial%42
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          6;
+        startFace       1073393;
+    }
+    motorBike_round-dial%43
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          15;
+        startFace       1073399;
+    }
+    motorBike_dial-holder%44
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          88;
+        startFace       1073414;
+    }
+    motorBike_rear-susp%45
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1727;
+        startFace       1073502;
+    }
+    motorBike_rear-brake-lights%46
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          58;
+        startFace       1075229;
+    }
+    motorBike_rear-light-bracket%47
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          155;
+        startFace       1075287;
+    }
+    motorBike_frame%48
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          2018;
+        startFace       1075442;
+    }
+    motorBike_rear-mud-guard%49
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          651;
+        startFace       1077460;
+    }
+    motorBike_rear-susp-spring-damp%50
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          92;
+        startFace       1078111;
+    }
+    motorBike_fairing-inner-plate%51
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          432;
+        startFace       1078203;
+    }
+    motorBike_clutch-housing%52
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          927;
+        startFace       1078635;
+    }
+    motorBike_radiator%53
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          52;
+        startFace       1079562;
+    }
+    motorBike_water-pipe%54
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          96;
+        startFace       1079614;
+    }
+    motorBike_water-pump%55
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          72;
+        startFace       1079710;
+    }
+    motorBike_engine%56
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          2303;
+        startFace       1079782;
+    }
+    motorBike_rear-shock-link%57
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          27;
+        startFace       1082085;
+    }
+    motorBike_rear-brake-fluid-pot-bracket%58
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          40;
+        startFace       1082112;
+    }
+    motorBike_rear-brake-fluid-pot%59
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          50;
+        startFace       1082152;
+    }
+    motorBike_footpeg%60
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          90;
+        startFace       1082202;
+    }
+    motorBike_rr-wh-chain-hub%61
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          122;
+        startFace       1082292;
+    }
+    motorBike_rear-brake-caliper%62
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          141;
+        startFace       1082414;
+    }
+    motorBike_rider-helmet%65
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          712;
+        startFace       1082555;
+    }
+    motorBike_rider-visor%66
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          165;
+        startFace       1083267;
+    }
+    motorBike_rider-boots%67
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          1003;
+        startFace       1083432;
+    }
+    motorBike_rider-gloves%68
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          312;
+        startFace       1084435;
+    }
+    motorBike_rider-body%69
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          4438;
+        startFace       1084747;
+    }
+    motorBike_frame:0%70
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          35;
+        startFace       1089185;
+    }
+    motorBike_frt-fairing:001-shadow%74
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          3298;
+        startFace       1089220;
+    }
+    motorBike_windshield-shadow%75
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          266;
+        startFace       1092518;
+    }
+    motorBike_fr-mud-guard-shadow%81
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          364;
+        startFace       1092784;
+    }
+    motorBike_fr-wh-brake-disk-shadow%83
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          185;
+        startFace       1093148;
+    }
+    motorBike_rear-mud-guard-shadow%84
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          394;
+        startFace       1093333;
+    }
+    motorBike_rear-susp-spring-damp-shadow%85
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          48;
+        startFace       1093727;
+    }
+    motorBike_radiator-shadow%86
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          20;
+        startFace       1093775;
+    }
+    motorBike_rear-shock-link-shadow%87
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          10;
+        startFace       1093795;
+    }
+    motorBike_rear-brake-fluid-pot-bracket-shadow%88
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          27;
+        startFace       1093805;
+    }
+    motorBike_rr-wh-chain-hub-shadow%89
+    {
+        type            wall;
+        inGroups        1(motorBikeGroup);
+        nFaces          70;
+        startFace       1093832;
+    }
+)
+
+// ************************************************************************* //

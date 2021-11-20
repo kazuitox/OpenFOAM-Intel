@@ -1,11 +1,18 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # run from this directory
 
 NX=$1
 NY=$2
 NZ=$3
 
-NPROCS=16
+NPROCS=8
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE"
+#export MPI_RoCEv2_OPTIONS="-mca btl self -x UCX_TLS=rc,self,sm -x HCOLL_ENABLE_MCAST_ALL=0 -mca coll_hcoll_enable 0 -x UCX_IB_TRAFFIC_CLASS=105 -x UCX_IB_GID_INDEX=3"
+export MPI_RoCEv2_OPTIONS=""
+#export MPI_Pinning_OPTIONS="--cpu-set 0,2,4,6,8,10,12,14"
+export MPI_Pinning_OPTIONS="--use-hwthread-cpus"
+export MPI_OPTIONS="$MPI_BASE_OPTIONS $MPI_RoCEv2_OPTIONS $MPI_Pinning_OPTIONS"
 
 echo "Setting up with $NPROCS procs.  Blockmesh size = $NX x $NY x $NZ"
 
@@ -25,7 +32,8 @@ runApplication surfaceFeatureExtract
 runApplication blockMesh
 
 runApplication decomposePar
-runParallel snappyHexMesh -overwrite
+#runParallel snappyHexMesh -overwrite
+${MPI} ${MPI_OPTIONS} snappyHexMesh -overwrite -parallel >& log.snappyHexMesh
 
 runApplication reconstructParMesh -constant
 rm -rf processor*
