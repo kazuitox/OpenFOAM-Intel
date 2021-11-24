@@ -9,7 +9,7 @@ cd ${SLURM_SUBMIT_DIR}
 scontrol show hostname $SLURM_JOB_NODELIST | sed 's/$/ slots=36/' > ./hostfile
 
 source /usr/mpi/gcc/openmpi-4.0.3rc4/bin/mpivars.sh
-source /nfs/cluster/app/v2.2.2/OpenFOAM/OpenFOAM-2.2.2/etc/bashrc
+source /nfs/cluster/app/v2006/OpenFOAM/OpenFOAM-v2006/etc/bashrc
 
 NPROCS=${SLURM_NTASKS}
 export HOSTFILE="./hostfile"

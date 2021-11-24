@@ -11,7 +11,7 @@ NY=24
 NZ=24
 
 source /usr/mpi/gcc/openmpi-4.0.3rc4/bin/mpivars.sh
-source /nfs/cluster/app/v2.2.2/OpenFOAM/OpenFOAM-2.2.2/etc/bashrc
+source /nfs/cluster/app/v2006/OpenFOAM/OpenFOAM-v2006/etc/bashrc
 export HOSTFILE="./hostfile"
 export MPI=$(which mpirun)
 export MPI_BASE_OPTIONS="-np $MESH_NPROCS -hostfile $HOSTFILE"
