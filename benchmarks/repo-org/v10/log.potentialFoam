@@ -1,0 +1,37 @@
+
+
+--> FOAM FATAL ERROR: 
+bool IPstream::init(int& argc, char**& argv) : attempt to run parallel on 1 processor
+
+    From function static bool Foam::UPstream::init(int&, char**&, bool)
+    in file UPstream.C at line 108.
+
+FOAM aborting
+
+#0  Foam::error::printStack(Foam::Ostream&) at :?
+#1  Foam::error::abort() at :?
+#2  Foam::UPstream::init(int&, char**&, bool) at :?
+#3  Foam::argList::argList(int&, char**&, bool, bool, bool) at :?
+#4  ? at :?
+#5  __libc_start_main in "/lib64/libc.so.6"
+#6  ? at :?
+[a1-1core:13161] *** Process received signal ***
+[a1-1core:13161] Signal: Aborted (6)
+[a1-1core:13161] Signal code:  (-6)
+[a1-1core:13161] [ 0] linux-vdso.so.1(__kernel_rt_sigreturn+0x0)[0xfffc243305d0]
+[a1-1core:13161] [ 1] /lib64/libc.so.6(gsignal+0xac)[0xfffc210c6a34]
+[a1-1core:13161] [ 2] /lib64/libc.so.6(abort+0x114)[0xfffc210b0a2c]
+[a1-1core:13161] [ 3] /app/OpenFOAM/OpenFOAM-10/platforms/linuxArm64GccDPInt32Opt/lib/libOpenFOAM.so(_ZN4Foam5error5abortEv+0xfc)[0xfffc2179003c]
+[a1-1core:13161] [ 4] /app/OpenFOAM/OpenFOAM-10/platforms/linuxArm64GccDPInt32Opt/lib/openmpi-system/libPstream.so(_ZN4Foam8UPstream4initERiRPPcb+0x3c8)[0xfffc210660e8]
+[a1-1core:13161] [ 5] /app/OpenFOAM/OpenFOAM-10/platforms/linuxArm64GccDPInt32Opt/lib/libOpenFOAM.so(_ZN4Foam7argListC1ERiRPPcbbb+0x824)[0xfffc217a5e30]
+[a1-1core:13161] [ 6] potentialFoam[0x42bf24]
+[a1-1core:13161] [ 7] /lib64/libc.so.6(__libc_start_main+0xe4)[0xfffc210b4b2c]
+[a1-1core:13161] [ 8] potentialFoam[0x42e078]
+[a1-1core:13161] *** End of error message ***
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun noticed that process rank 0 with PID 0 on node a1-1core exited on signal 6 (Aborted).
+--------------------------------------------------------------------------
