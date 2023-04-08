@@ -1,0 +1,46 @@
+#!/bin/sh
+#SBATCH -J setup_motorbike
+#SBATCH -o logs/setup_motorbike.o%J
+#SBATCH -e logs/setup_motorbike.e%J
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-core=1
+
+source /nfs/cluster/intel/oneapi/compiler/latest/env/vars.sh
+source /nfs/cluster/intel/oneapi/mpi/latest/env/vars.sh
+source /nfs/cluster/app/impi/OpenFOAM-v2206/etc/bashrc
+
+NPROCS=${SLURM_NTASKS}
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE -genv I_MPI_DEBUG=5"
+export MPI_RoCEv2_OPTIONS="-iface ens800f0 -genv UCX_TLS=rc,self,sm -genv UCX_NET_DEVICES=mlx5_2:1 -genv I_MPI_FABRICS=shm:ofi"
+export MPI_Pinning_OPTIONS=""
+export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTIONS}"
+
+cd ${SLURM_SUBMIT_DIR}
+
+echo "Running with $NPROCS procs."
+
+rm -f log.*
+rm -rf processor*
+
+sed "s/NPROCS/$NPROCS/g" system/decomposeParDict-solve.in > system/decomposeParDict
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+runApplication decomposePar
+
+#- For non-parallel running
+#cp -r 0.org 0 > /dev/null 2>&1
+
+#- For parallel running
+ls -d processor* | xargs -I {} rm -rf ./{}/0
+ls -d processor* | xargs -I {} cp -r 0.org ./{}/0
+
+#runParallel potentialFoam
+echo "Running potentialFoam on `pwd`"
+${MPI} ${MPI_OPTIONS} potentialFoam -parallel >& log.potentialFoam
+
+# ----------------------------------------------------------------- end-of-file

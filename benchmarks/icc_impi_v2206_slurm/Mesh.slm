@@ -1,0 +1,54 @@
+#!/bin/sh
+#SBATCH -J mesh_motorbike
+#SBATCH -o logs/mesh_motorbike.o%J
+#SBATCH -e logs/mesh_motorbike.e%J
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-core=1
+
+NX=60
+NY=24
+NZ=24
+
+source /nfs/cluster/intel/oneapi/compiler/latest/env/vars.sh
+source /nfs/cluster/intel/oneapi/mpi/latest/env/vars.sh
+source /nfs/cluster/app/impi/OpenFOAM-v2206/etc/bashrc
+
+NPROCS=${SLURM_NTASKS}
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE -genv I_MPI_DEBUG=5"
+export MPI_RoCEv2_OPTIONS="-iface ens800f0 -genv UCX_TLS=rc,self,sm -genv UCX_NET_DEVICES=mlx5_2:1 -genv I_MPI_FABRICS=shm:ofi"
+export MPI_Pinning_OPTIONS=""
+export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTIONS}"
+
+cd ${SLURM_SUBMIT_DIR}
+
+scontrol show hostname $SLURM_JOB_NODELIST | sed 's/$/:36/' > ./hostfile
+
+echo "Setting up with $NPROCS procs.  Blockmesh size = $NX x $NY x $NZ"
+
+mkdir -p constant/polyMesh
+mkdir -p constant/triSurface
+
+sed "s/NX/$NX/g;s/NY/$NY/g;s/NZ/$NZ/g" system/blockMeshDict-mesh.in > constant/polyMesh/blockMeshDict
+sed "s/XX/${NPROCS}/" system/decomposeParDict-mesh.in > system/decomposeParDict
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# copy motorbike surface from resources directory
+cp $FOAM_TUTORIALS/resources/geometry/motorBike.obj.gz constant/triSurface/
+runApplication surfaceFeatureExtract
+
+runApplication blockMesh
+
+runApplication decomposePar
+
+echo "Running snappyHexMesh on `pwd`"
+${MPI} ${MPI_OPTIONS} snappyHexMesh -overwrite -parallel >& log.snappyHexMesh
+
+runApplication reconstructParMesh -constant
+rm -rf processor*
+
+runApplication renumberMesh -constant -overwrite
