@@ -27,6 +27,8 @@ rm -rf processor*
 
 sed "s/NPROCS/$NPROCS/g" system/decomposeParDict-solve.in > system/decomposeParDict
 
+scontrol show hostname $SLURM_JOB_NODELIST | sed 's/$/:36/' > ./hostfile
+
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
