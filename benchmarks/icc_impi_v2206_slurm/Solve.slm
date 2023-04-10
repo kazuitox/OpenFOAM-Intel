@@ -20,6 +20,8 @@ export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTI
 
 cd ${SLURM_SUBMIT_DIR}
 
+scontrol show hostname $SLURM_JOB_NODELIST | sed 's/$/:36/' > ./hostfile
+
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
