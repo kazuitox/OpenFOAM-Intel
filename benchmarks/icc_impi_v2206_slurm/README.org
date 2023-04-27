@@ -5,6 +5,17 @@ There are scripts to configure a motorbike example with minimal effort.
 First decide the size and mesh.  This is configured with the inital blockmesh size:
 
 #+begin_src bash
+vi Mesh.slm
+#+end_src
+
+
+```
+NX=60
+NY=24
+NZ=24
+```
+
+#+begin_src bash
 ./Mesh <X> <Y> <Z>
 #+end_src
 
