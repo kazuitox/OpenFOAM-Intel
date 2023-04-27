@@ -1,3 +1,5 @@
+The SLURM job script here assumes that OpenFOAM v2206 compiled with Intel MPI and Intel Compiler is running on a Cluster Network on OCI.
+
 * Scalable motorbike benchmark
 
 There are scripts to configure a motorbike example with minimal effort.
