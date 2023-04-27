@@ -8,16 +8,20 @@ First decide the size and mesh.  This is configured with the inital blockmesh si
 vi Mesh.slm
 #+end_src
 
-
+Modify the following items as appropriate
 ```
+#SBATCH -J mesh_motorbike
+#SBATCH -o logs/mesh_motorbike.o%J
+#SBATCH -e logs/mesh_motorbike.e%J
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-core=1
+
+
 NX=60
 NY=24
 NZ=24
 ```
-
-#+begin_src bash
-./Mesh <X> <Y> <Z>
-#+end_src
 
 Here is an example of the sizes of mesh that are created for different values:
 
@@ -31,11 +35,24 @@ Here is an example of the sizes of mesh that are created for different values:
 |   100 |    40 |    40 |    20    |
 |-------+-------+-------+----------|
 
+
 It is recommended to keep the same proportions here.
 
 Note: All meshing will be run with 16 procs although you can update if necessary.
 
+Submits a job to SLURM.
+#+begin_src bash
+sbatch Mesh.slm
+#+end_src
+
 Now, you can set up the case for a given number of processes (calling setup again will wipe existing partitions):
+
+
+#+begin_src bash
+vi Setup.slm
+#+end_src
+
+
 
 #+begin_src bash
 ./Setup <NPROCS>
