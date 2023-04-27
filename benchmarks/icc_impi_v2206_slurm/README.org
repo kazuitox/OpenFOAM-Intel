@@ -8,8 +8,9 @@ First decide the size and mesh.  This is configured with the inital blockmesh si
 vi Mesh.slm
 #+end_src
 
-Modify the following items as appropriate
-```
+
+Modify the following items as appropriate:
+#+begin_src
 #SBATCH -J mesh_motorbike
 #SBATCH -o logs/mesh_motorbike.o%J
 #SBATCH -e logs/mesh_motorbike.e%J
@@ -21,7 +22,19 @@ Modify the following items as appropriate
 NX=60
 NY=24
 NZ=24
-```
+
+source /nfs/cluster/intel/oneapi/compiler/latest/env/vars.sh
+source /nfs/cluster/intel/oneapi/mpi/latest/env/vars.sh
+source /nfs/cluster/app/impi/OpenFOAM-v2206/etc/bashrc
+
+NPROCS=${SLURM_NTASKS}
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE -genv I_MPI_DEBUG=5"
+export MPI_RoCEv2_OPTIONS="-iface ens800f0 -genv UCX_TLS=rc,self,sm -genv UCX_NET_DEVICES=mlx5_2:1 -genv I_MPI_FABRICS=shm:ofi"
+export MPI_Pinning_OPTIONS=""
+export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTIONS}"
+#+end_src
 
 Here is an example of the sizes of mesh that are created for different values:
 
@@ -52,10 +65,31 @@ Now, you can set up the case for a given number of processes (calling setup agai
 vi Setup.slm
 #+end_src
 
+Modify the following items as appropriate:
+#+begin_src
+#SBATCH -J setup_motorbike
+#SBATCH -o logs/setup_motorbike.o%J
+#SBATCH -e logs/setup_motorbike.e%J
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-core=1
 
+source /nfs/cluster/intel/oneapi/compiler/latest/env/vars.sh
+source /nfs/cluster/intel/oneapi/mpi/latest/env/vars.sh
+source /nfs/cluster/app/impi/OpenFOAM-v2206/etc/bashrc
 
+NPROCS=${SLURM_NTASKS}
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE -genv I_MPI_DEBUG=5"
+export MPI_RoCEv2_OPTIONS="-iface ens800f0 -genv UCX_TLS=rc,self,sm -genv UCX_NET_DEVICES=mlx5_2:1 -genv I_MPI_FABRICS=shm:ofi"
+export MPI_Pinning_OPTIONS=""
+export MPI_OPTIONS="${MPI_BASE_OPTIONS} ${MPI_RoCEv2_OPTIONS} ${MPI_Pinning_OPTIONS}"
+#+end_src
+
+Submits a job to SLURM.
 #+begin_src bash
-./Setup <NPROCS>
+sbatch Setup.slm
 #+end_src
 
 This will decompose and run potentialFoam.
@@ -63,7 +97,34 @@ This will decompose and run potentialFoam.
 Now, all you need to do is solve.  Either run simpleFoam or call:
 
 #+begin_src bash
-./Solve <NPROCS>
+vi Solve.slm
+#+end_src
+
+Modify the following items as appropriate:
+
+#+begin_src
+#SBATCH -J solve_motorbike
+#SBATCH -o logs/solve_motorbike.o%J
+#SBATCH -e logs/solve_motorbike.e%J
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=36
+#SBATCH --ntasks-per-core=1
+
+source /nfs/cluster/intel/oneapi/compiler/latest/env/vars.sh
+source /nfs/cluster/intel/oneapi/mpi/latest/env/vars.sh
+source /nfs/cluster/app/impi/OpenFOAM-v2206/etc/bashrc
+
+NPROCS=${SLURM_NTASKS}
+export HOSTFILE="./hostfile"
+export MPI=$(which mpirun)
+export MPI_BASE_OPTIONS="-np $NPROCS -hostfile $HOSTFILE -genv I_MPI_DEBUG=5"
+export MPI_RoCEv2_OPTIONS="-iface ens800f0 -genv UCX_TLS=rc,self,sm -genv UCX_NET_DEVICES=mlx5_2:1 -genv I_MPI_FABRICS=shm:ofi"
+export MPI_Pinning_OPTIONS=""
+#+end_src
+
+Submits a job to SLURM.
+#+begin_src bash
+sbatch Solve.slm
 #+end_src
 
 
